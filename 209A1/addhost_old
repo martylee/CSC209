@@ -1,0 +1,52 @@
+    if [ -d $HOME/hosts ]
+    then
+        if [ -f $HOME/hosts/* ]
+        then
+         :
+        else
+          echo $2 >$HOME/hosts/$1
+          echo "192.168.1.1" >>$HOME/hosts/$1
+          exit 0
+        fi
+    else
+        echo $HOME/hosts directory cannot be found
+        exit 1
+    fi
+    
+
+
+    for i in "$HOME/hosts/*"
+    do
+      ip=`cat $i | grep 192.168 | sort | tail -n1`
+      third=`echo $ip | tr '.' ' ' | sed 's/\(.*\) \(.*\) \(.*\) \(.*\)/\3/'`
+      
+    done
+    
+    
+    
+    
+    for m in "$HOME/hosts/*"
+    do
+    value=`cat $m | grep 192.168.$third | tr '.' ' ' | sed 's/\(.*\) \(.*\) \(.*\) \(.*\)/\4/'`
+    done
+    
+    fourth=1
+    for i in $value
+    do
+      if [ $i -gt $fourth ]
+      then
+        fourth=$i
+      fi
+    done
+
+    if [ $fourth -eq 254 ]
+    then
+       fourth=1
+       third=`expr $third + 1`
+    else
+       fourth=`expr $fourth + 1`
+    fi
+    
+    echo $2 >$HOME/hosts/$1
+    echo 192.168.$third.$fourth >>$HOME/hosts/$1
+   

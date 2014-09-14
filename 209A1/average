@@ -1,0 +1,18 @@
+PATH=/bin:/usr/bin
+file=`cat $@ | tr ' ' '\n'`
+
+
+if [ -z "$file" ]
+then
+  echo average: no input values
+  exit 1
+fi
+
+n=0
+sum=0
+for i in $file
+do
+  sum=`expr $sum + $i`
+  n=`expr $n + 1`
+done
+expr $sum / $n
