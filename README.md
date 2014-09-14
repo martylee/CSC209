@@ -12,3 +12,5 @@ ajr@cs.toronto.edu (no HTML e-mail please)
 BA 3218
 
 In this course, we have four assignment, the first one this about UNIX shell command, and the others are standard C.
+
+Here is my own solution code for them.
